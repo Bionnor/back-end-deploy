@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @SpringBootApplication
@@ -22,8 +23,8 @@ public class BackEndApplication {
 							CustomerRepository customerRepository,
 							AdminRepository adminRepository,
 							ModeratorRepository moderatorRepository,
-							UserRepository userRepository
-							){
+							UserRepository userRepository,
+							PasswordEncoder passwordEncoder){
 
 		return args -> {
 			Role adminRole = new Role();
@@ -33,34 +34,35 @@ public class BackEndApplication {
 			Role moderatorRole = new Role();
 			moderatorRole.setRoleName("ROLE_MODERATOR");
 			roleRepository.save(moderatorRole);
-
 			Role customerRole = new Role();
 			customerRole.setRoleName("ROLE_CUSTOMER");
 			roleRepository.save(customerRole);
-
 			// Create and save users of different types
 			Administrator admin = new Administrator();
 			admin.setUsername("admin");
-			admin.setPassword("admin");
+			admin.setPassword(passwordEncoder.encode("admin"));
 			admin.setEmail("admin@admin.com");
 			admin.setIsOnline(true);
 			admin.setPhotoUrl("photo.jpg");
 			admin.getRoles().add(adminRole);
+			admin.getRoles().add(moderatorRole);
+			admin.getRoles().add(customerRole);
 			userRepository.save(admin);
 
 			Moderator moderator = new Moderator();
 			moderator.setUsername("moderator");
-			moderator.setPassword("moderator");
+			moderator.setPassword(passwordEncoder.encode("moderator"));
 			moderator.setEmail("moderator@moderator.com");
 			moderator.setIsOnline(true);
 			moderator.setPhotoUrl("photo.jpg");
 			moderator.setIsEnabled(true);
 			moderator.getRoles().add(moderatorRole);
+			moderator.getRoles().add(customerRole);
 			userRepository.save(moderator);
 
 			Customer customer = new Customer();
 			customer.setUsername("customer");
-			customer.setPassword("customer");
+			customer.setPassword(passwordEncoder.encode("customer"));
 			customer.setEmail("customer@customer.com");
 			customer.setIsOnline(true);
 			customer.setPhone("0629174033");
