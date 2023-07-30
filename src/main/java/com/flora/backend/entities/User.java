@@ -1,5 +1,6 @@
 package com.flora.backend.entities;
 
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,13 @@ public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
+    @Column(unique = true ,nullable = false)
     private String email;
-
     @Column(unique = true ,nullable = false)
     private String username;
+    @Column(nullable = false)
     private String password;
-    private Boolean isOnline;
+    private Boolean isOnline=false;
     private String photoUrl;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

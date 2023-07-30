@@ -14,4 +14,5 @@ public class Customer extends User {
     private String lastName;
     private Boolean sexe;
     private String phone;
+
 }
