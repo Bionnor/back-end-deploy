@@ -17,12 +17,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
@@ -61,19 +64,55 @@ public class AuthServiceImp implements AuthService {
 
 
     @Override
-    public JwtResponse login(String username, String password) {
+    public JwtResponse loginAdmin(String username, String password) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(username, password)
         );
-
-        if (authentication.isAuthenticated()) {
+        if (authentication.isAuthenticated() && authentication.getAuthorities().contains("ROLE_ADMIN")) {
             RefreshToken refreshToken = refreshTokenService.createRefreshToken(username);
             return JwtResponse.builder()
                     .accessToken(jwtService.generateToken(username))
                     .token(refreshToken.getToken()).build();
         } else throw new RuntimeException("Invalid Access");
     }
+    @Override
+    public JwtResponse loginCustomer(String username, String password) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(username, password)
+        );
+        // Get the user's authorities
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
+        if (authentication.isAuthenticated() && hasAuthority(authorities, "ROLE_CUSTOMER")) {
+            // Check if the user has the required authority (role) for loginCustomer functionality
+                RefreshToken refreshToken = refreshTokenService.createRefreshToken(username);
+                return JwtResponse.builder()
+                        .accessToken(jwtService.generateToken(username))
+                        .token(refreshToken.getToken()).build();
+
+        } else {
+            throw new BadCredentialsException("Invalid credentials. Authentication failed.");
+        }
+    }
+
+    private boolean hasAuthority(Collection<? extends GrantedAuthority> authorities, String authority) {
+        return authorities.stream()
+                .anyMatch(auth -> auth.getAuthority().equals(authority));
+    }
+
+
+    @Override
+    public JwtResponse loginModerator(String username, String password) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(username, password)
+        );
+        if (authentication.isAuthenticated() && authentication.getAuthorities().contains("ROLE_MODERATOR")) {
+            RefreshToken refreshToken = refreshTokenService.createRefreshToken(username);
+            return JwtResponse.builder()
+                    .accessToken(jwtService.generateToken(username))
+                    .token(refreshToken.getToken()).build();
+        } else throw new RuntimeException("Invalid Access");
+    }
     @Override
     public JwtResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
 
@@ -135,6 +174,8 @@ public class AuthServiceImp implements AuthService {
             return false;
         }
     }
+
+
 }
 
 

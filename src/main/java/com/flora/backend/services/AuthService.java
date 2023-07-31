@@ -11,7 +11,6 @@ import java.util.Map;
 
 public interface AuthService {
     ResponseEntity<Boolean> registerCustomer(SaveCustomerDto saveCustomerDto);
-    JwtResponse login(String username, String password);
     JwtResponse refreshToken(RefreshTokenRequest refreshTokenRequest);
      void requestPasswordReset(String email);
 
@@ -20,4 +19,9 @@ public interface AuthService {
     Boolean changePassword(String password,Long id);
 
 
+    JwtResponse loginCustomer(String username, String password);
+
+    JwtResponse loginAdmin(String username, String password);
+
+    JwtResponse loginModerator(String username, String password);
 }

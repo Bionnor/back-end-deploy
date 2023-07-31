@@ -37,11 +37,18 @@ public class AuthController {
         return authService.registerCustomer(saveCustomerDto);
     }
 
-    @PostMapping("/login")
-    public JwtResponse login(String username, String password) {
-        return authService.login(username, password);
+    @PostMapping("/customer/login")
+    public JwtResponse loginCustomer(@RequestBody UserInput userInput) {
+        return authService.loginCustomer(userInput.getUsername(), userInput.getPassword());
     }
-
+    @PostMapping("/admin/login")
+    public JwtResponse loginAdmin(@RequestBody UserInput userInput) {
+        return authService.loginAdmin(userInput.getUsername(), userInput.getPassword());
+    }
+    @PostMapping("/moderator/login")
+    public JwtResponse loginModerator(@RequestBody UserInput userInput) {
+        return authService.loginModerator(userInput.getUsername(), userInput.getPassword());
+    }
 
     @PostMapping("/refreshToken")
     public JwtResponse refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {

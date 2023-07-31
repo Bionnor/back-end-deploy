@@ -13,8 +13,8 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserInput {
-    private String email;
+
     private String username;
     private String password;
-    private Set<Role> roles;
+
 }
