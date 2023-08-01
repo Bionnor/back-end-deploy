@@ -43,7 +43,6 @@ public class AuthController {
     }
     @PostMapping("/admin/login")
     public JwtResponse loginAdmin(@RequestBody UserInput userInput) {
-        log.info(userInput.toString());
         return authService.loginAdmin(userInput.getEmail(), userInput.getPassword());
     }
     @PostMapping("/moderator/login")

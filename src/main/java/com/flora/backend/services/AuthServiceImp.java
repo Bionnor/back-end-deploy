@@ -68,7 +68,7 @@ public class AuthServiceImp implements AuthService {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(email, password)
         );
-        log.info(authentication.getName());
+
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
         if (authentication.isAuthenticated() && hasAuthority(authorities, "ROLE_ADMIN")) {
@@ -137,7 +137,7 @@ public class AuthServiceImp implements AuthService {
 
     @Override
     public void requestPasswordReset(String email) {
-        log.info(email);
+       // log.info(email);
         Optional<User> user = userRepository.findByEmail(email);
 
         if (user.isPresent()) {

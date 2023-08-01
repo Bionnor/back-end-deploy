@@ -1,10 +1,7 @@
 package com.flora.backend;
 
 
-import com.flora.backend.entities.Administrator;
-import com.flora.backend.entities.Customer;
-import com.flora.backend.entities.Moderator;
-import com.flora.backend.entities.Role;
+import com.flora.backend.entities.*;
 import com.flora.backend.repository.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -28,7 +25,10 @@ public class BackEndApplication {
 	@Bean
 	CommandLineRunner Start(RoleRepository roleRepository,
 							UserRepository userRepository,
-							PasswordEncoder passwordEncoder){
+							ProductRepository productRepository,
+							PasswordEncoder passwordEncoder,
+							CategoryRepository categoryRepository
+							){
 
 		return args -> {
 
@@ -75,6 +75,36 @@ public class BackEndApplication {
 			customer.setSexe(true);
 			customer.getRoles().add(customerRole);
 			userRepository.save(customer);
+
+
+			Category category = new Category();
+			category.setName("Electronics");
+			categoryRepository.save(category);
+
+			// Create two sample products and associate them with the category
+			Product product1 = new Product();
+			product1.setName("Laptop");
+			product1.setDescription("High-performance laptop");
+			product1.setPrice(1000.0);
+			product1.setQuantity(10);
+			product1.setCategory(category);
+			product1.setBrand("HP");
+			product1.setRating(4.5);
+			product1.setActive(true);
+
+			Product product2 = new Product();
+			product2.setName("Smartphone");
+			product2.setDescription("Flagship smartphone");
+			product2.setPrice(800.0);
+			product2.setQuantity(20);
+			product2.setCategory(category);
+			product2.setBrand("Samsung");
+			product2.setRating(4.8);
+			product2.setActive(true);
+
+			productRepository.save(product1);
+			productRepository.save(product2);
+
 
 		};
 	}
