@@ -14,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class UserInput {
 
-    private String username;
+    private String email;
     private String password;
 
 }

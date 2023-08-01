@@ -19,9 +19,9 @@ public interface AuthService {
     Boolean changePassword(String password,Long id);
 
 
-    JwtResponse loginCustomer(String username, String password);
+    JwtResponse loginCustomer(String email, String password);
 
-    JwtResponse loginAdmin(String username, String password);
+    JwtResponse loginAdmin(String email, String password);
 
-    JwtResponse loginModerator(String username, String password);
+    JwtResponse loginModerator(String email, String password);
 }
