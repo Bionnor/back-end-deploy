@@ -10,6 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Date;
+
 
 @SpringBootApplication
 public class BackEndApplication {
@@ -90,6 +92,7 @@ public class BackEndApplication {
 			product1.setCategory(category);
 			product1.setBrand("HP");
 			product1.setRating(4.5);
+			product1.setCreatedAt(new Date());
 			product1.setActive(true);
 
 			Product product2 = new Product();
@@ -100,6 +103,7 @@ public class BackEndApplication {
 			product2.setCategory(category);
 			product2.setBrand("Samsung");
 			product2.setRating(4.8);
+			product2.setCreatedAt(new Date());
 			product2.setActive(true);
 
 			productRepository.save(product1);
