@@ -1,12 +1,12 @@
-package com.flora.backend.dtos.Product;
+package com.flora.backend.dtos;
 
 import lombok.Data;
 
 import java.util.List;
 @Data
-public class ProductPageDTO {
+public class ResponsePageDTO<T> {
     private int currentPage;
     private int totalPages;
     private int pageSize;
-    private List<ProductView> products;
+    private List<T> responseList;
 }
