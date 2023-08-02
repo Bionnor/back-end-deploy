@@ -64,29 +64,35 @@ public class AuthServiceImp implements AuthService {
 
 
     @Override
-    public JwtResponse loginAdmin(String username, String password) {
+    public JwtResponse loginAdmin(String email, String password) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(username, password)
+                new UsernamePasswordAuthenticationToken(email, password)
         );
-        if (authentication.isAuthenticated() && authentication.getAuthorities().contains("ROLE_ADMIN")) {
-            RefreshToken refreshToken = refreshTokenService.createRefreshToken(username);
+
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+        if (authentication.isAuthenticated() && hasAuthority(authorities, "ROLE_ADMIN")) {
+            // Check if the user has the required authority (role) for loginCustomer functionality
+            RefreshToken refreshToken = refreshTokenService.createRefreshToken(email);
             return JwtResponse.builder()
-                    .accessToken(jwtService.generateToken(username))
+                    .accessToken(jwtService.generateToken(email))
                     .token(refreshToken.getToken()).build();
+
         } else throw new RuntimeException("Invalid Access");
     }
     @Override
-    public JwtResponse loginCustomer(String username, String password) {
+    public JwtResponse loginCustomer(String email, String password) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(username, password)
+                new UsernamePasswordAuthenticationToken(email, password)
         );
+
         // Get the user's authorities
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         if (authentication.isAuthenticated() && hasAuthority(authorities, "ROLE_CUSTOMER")) {
             // Check if the user has the required authority (role) for loginCustomer functionality
-                RefreshToken refreshToken = refreshTokenService.createRefreshToken(username);
+                RefreshToken refreshToken = refreshTokenService.createRefreshToken(email);
                 return JwtResponse.builder()
-                        .accessToken(jwtService.generateToken(username))
+                        .accessToken(jwtService.generateToken(email))
                         .token(refreshToken.getToken()).build();
 
         } else {
@@ -101,14 +107,14 @@ public class AuthServiceImp implements AuthService {
 
 
     @Override
-    public JwtResponse loginModerator(String username, String password) {
+    public JwtResponse loginModerator(String email, String password) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(username, password)
+                new UsernamePasswordAuthenticationToken(email, password)
         );
         if (authentication.isAuthenticated() && authentication.getAuthorities().contains("ROLE_MODERATOR")) {
-            RefreshToken refreshToken = refreshTokenService.createRefreshToken(username);
+            RefreshToken refreshToken = refreshTokenService.createRefreshToken(email);
             return JwtResponse.builder()
-                    .accessToken(jwtService.generateToken(username))
+                    .accessToken(jwtService.generateToken(email))
                     .token(refreshToken.getToken()).build();
         } else throw new RuntimeException("Invalid Access");
     }
@@ -130,7 +136,7 @@ public class AuthServiceImp implements AuthService {
 
     @Override
     public void requestPasswordReset(String email) {
-        log.info(email);
+       // log.info(email);
         Optional<User> user = userRepository.findByEmail(email);
 
         if (user.isPresent()) {
@@ -151,7 +157,7 @@ public class AuthServiceImp implements AuthService {
 
         // Check if the token is expired
         if (!jwtService.isTokenExpired(token)) {
-            String email=jwtService.extractUsername(token);
+            String email=jwtService.extractEmail(token);
             return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException(
                     "User is not in database!")).getId();
         } else throw new RuntimeException("Token expired !");

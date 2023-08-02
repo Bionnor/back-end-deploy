@@ -39,15 +39,15 @@ public class AuthController {
 
     @PostMapping("/customer/login")
     public JwtResponse loginCustomer(@RequestBody UserInput userInput) {
-        return authService.loginCustomer(userInput.getUsername(), userInput.getPassword());
+        return authService.loginCustomer(userInput.getEmail(), userInput.getPassword());
     }
     @PostMapping("/admin/login")
     public JwtResponse loginAdmin(@RequestBody UserInput userInput) {
-        return authService.loginAdmin(userInput.getUsername(), userInput.getPassword());
+        return authService.loginAdmin(userInput.getEmail(), userInput.getPassword());
     }
     @PostMapping("/moderator/login")
     public JwtResponse loginModerator(@RequestBody UserInput userInput) {
-        return authService.loginModerator(userInput.getUsername(), userInput.getPassword());
+        return authService.loginModerator(userInput.getEmail(), userInput.getPassword());
     }
 
     @PostMapping("/refreshToken")

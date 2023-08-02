@@ -9,12 +9,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.*;
 
 public class CustomUserDetails implements UserDetails {
-    private String username;
+    private String email;
     private String password;
     private Set<GrantedAuthority> authorities ;
 
     public CustomUserDetails(User userCredential) {
-        this.username = userCredential.getUsername();
+        this.email = userCredential.getEmail();
         this.password = userCredential.getPassword();
         this.authorities = new HashSet<>();
         // Populate authorities with roles
@@ -35,7 +35,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override
