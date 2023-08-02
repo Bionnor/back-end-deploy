@@ -12,14 +12,33 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @Slf4j
 @CrossOrigin("*")
+@RequestMapping("/products")
 public class ProductController {
     private ProductService productService;
 
-    @GetMapping("/products")
+    @GetMapping("/")
     public ResponsePageDTO<ProductView> ShowProducts(@RequestParam(name = "page", defaultValue = "0") int page,
                                         @RequestParam(name = "size", defaultValue = "6") int size) {
 
-        return productService.listProducts(page, size);
+        return productService.showProducts(page, size);
+    }
+    @GetMapping("/by-category")
+    public ResponsePageDTO<ProductView> ShowProductsByCategory(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "category_id") Long categoryId,
+            @RequestParam(name = "size", defaultValue = "6") int size) {
+
+        return productService.findByCategory(page, size,categoryId);
+    }
+
+
+
+    @GetMapping("/search")
+    public ResponsePageDTO<ProductView> searchProduct(@RequestParam(name = "keyword", defaultValue = "") String keyword,
+                                    @RequestParam(name = "page", defaultValue = "0") int page,
+                                    @RequestParam(name = "size", defaultValue = "6") int size) {
+
+        return productService.SearchProducts("%" + keyword + "%", page, size);
     }
 
 }
