@@ -82,7 +82,6 @@ public class AuthServiceImp implements AuthService {
         );
         // Get the user's authorities
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-
         if (authentication.isAuthenticated() && hasAuthority(authorities, "ROLE_CUSTOMER")) {
             // Check if the user has the required authority (role) for loginCustomer functionality
                 RefreshToken refreshToken = refreshTokenService.createRefreshToken(username);
