@@ -83,6 +83,10 @@ public class BackEndApplication {
 			category.setName("Electronics");
 			categoryRepository.save(category);
 
+			Category categoryPhone = new Category();
+			categoryPhone.setName("Phone");
+			categoryRepository.save(categoryPhone);
+
 			// Create two sample products and associate them with the category
 			Product product1 = new Product();
 			product1.setName("Laptop");
@@ -100,7 +104,7 @@ public class BackEndApplication {
 			product2.setDescription("Flagship smartphone");
 			product2.setPrice(800.0);
 			product2.setQuantity(20);
-			product2.setCategory(category);
+			product2.setCategory(categoryPhone);
 			product2.setBrand("Samsung");
 			product2.setRating(4.8);
 			product2.setCreatedAt(new Date());

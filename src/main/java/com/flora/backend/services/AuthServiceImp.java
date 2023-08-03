@@ -125,7 +125,7 @@ public class AuthServiceImp implements AuthService {
                 .map(refreshTokenService::verifyExpiration)
                 .map(RefreshToken::getUser)
                 .map(userInfo -> {
-                    String accessToken = jwtService.generateToken(userInfo.getUsername());
+                    String accessToken = jwtService.generateToken(userInfo.getEmail());
                     return JwtResponse.builder()
                             .accessToken(accessToken)
                             .token(refreshTokenRequest.getToken())

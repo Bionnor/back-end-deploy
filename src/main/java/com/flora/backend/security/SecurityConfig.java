@@ -18,6 +18,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -32,9 +35,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity.csrf().disable()
-
+                .cors().and()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/**","/users","/products/**","/category/**").permitAll()
+                .requestMatchers("/auth/**","/users").permitAll()
                 .requestMatchers("/moderator/**")
                 .hasAnyRole("ROLE_MODERATOR_PRODUCT","ROLE_MODERATOR_BLOG")
                 .requestMatchers("/admin/**","/moderator/**")
@@ -67,6 +70,16 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("*"); // Set allowed origins, you can use a specific domain here
+        configuration.addAllowedMethod("*"); // Set allowed HTTP methods (e.g., GET, POST, etc.)
+        configuration.addAllowedHeader("*"); // Set allowed headers
 
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 
 }
