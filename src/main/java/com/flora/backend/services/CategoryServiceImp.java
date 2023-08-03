@@ -33,4 +33,5 @@ public class CategoryServiceImp implements CategoryService {
     public List<CategoryView> ShowCategoriesWithoutPageable() {
         return categoryMapper.fromListCategoryToListCategoryView(categoryRepository.findAll());
     }
+
 }

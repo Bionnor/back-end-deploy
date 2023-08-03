@@ -32,8 +32,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity.csrf().disable()
+
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/**","/users","/category/**","/products/**").permitAll()
+                .requestMatchers("/auth/**","/users","/products/**","/category/**").permitAll()
                 .requestMatchers("/moderator/**")
                 .hasAnyRole("ROLE_MODERATOR_PRODUCT","ROLE_MODERATOR_BLOG")
                 .requestMatchers("/admin/**","/moderator/**")
