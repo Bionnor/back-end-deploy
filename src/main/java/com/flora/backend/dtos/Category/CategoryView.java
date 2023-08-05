@@ -1,8 +1,7 @@
 package com.flora.backend.dtos.Category;
 
 import com.flora.backend.entities.Category;
-import com.flora.backend.entities.Product;
-import jakarta.persistence.*;
+
 import lombok.Data;
 
 import java.util.Date;
