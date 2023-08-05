@@ -4,6 +4,7 @@ package com.flora.backend.services;
 import com.flora.backend.dtos.Product.ProductSaveDTO;
 import com.flora.backend.dtos.Product.ProductView;
 import com.flora.backend.dtos.ResponsePageDTO;
+import com.flora.backend.entities.Product;
 
 public interface ProductService {
     ResponsePageDTO<ProductView> showProducts(int page, int size);
@@ -17,4 +18,6 @@ public interface ProductService {
     ProductSaveDTO updateProduct(Long productId, ProductSaveDTO productSaveDTO);
 
     boolean deleteProduct(Long productId);
+
+    ResponsePageDTO<ProductView> getFilteredProducts(String searchTerm, Long categoryId, int pageSize, int pageNumber);
 }

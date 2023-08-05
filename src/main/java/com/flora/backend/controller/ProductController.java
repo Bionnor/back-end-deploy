@@ -4,9 +4,11 @@ package com.flora.backend.controller;
 import com.flora.backend.dtos.Product.ProductSaveDTO;
 import com.flora.backend.dtos.Product.ProductView;
 import com.flora.backend.dtos.ResponsePageDTO;
+import com.flora.backend.entities.Product;
 import com.flora.backend.services.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 @RequestMapping("/products")
 public class ProductController {
+    @Autowired
     private ProductService productService;
 
     @GetMapping("/")
@@ -32,7 +35,14 @@ public class ProductController {
 
         return productService.findByCategory(page, size,categoryId);
     }
-
+    @GetMapping
+    public ResponsePageDTO<ProductView> getFilteredProducts(
+            @RequestParam(required = false) String searchTerm,
+            @RequestParam(required = false) Long categoryId,
+            @RequestParam(defaultValue = "5") int pageSize,
+            @RequestParam(defaultValue = "0") int pageNumber) {
+        return productService.getFilteredProducts(searchTerm, categoryId, pageSize, pageNumber);
+    }
     @PutMapping("/{productId}")
     public ResponseEntity<ProductSaveDTO> updateProduct(@PathVariable Long productId, @RequestBody ProductSaveDTO updatedProduct) {
         ProductSaveDTO result = productService.updateProduct(productId, updatedProduct);

@@ -11,16 +11,23 @@ import com.flora.backend.mappers.CategoryMapper;
 import com.flora.backend.mappers.ProductMapper;
 import com.flora.backend.repository.CategoryRepository;
 import com.flora.backend.repository.ProductRepository;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -108,5 +115,32 @@ public class ProductServiceImp implements ProductService{
         }
         return false;
     }
+    @Transactional(readOnly = true)
+    @Override
+    public ResponsePageDTO<ProductView> getFilteredProducts(String searchTerm, Long categoryId, int pageSize, int pageNumber) {
+
+        Specification<Product> specification = (root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (searchTerm != null && !searchTerm.isEmpty()) {
+                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + searchTerm.toLowerCase() + "%"));
+            }
+
+            if (categoryId != null) {
+                Join<Product, Category> categoryJoin = root.join("category");
+                predicates.add(criteriaBuilder.equal(categoryJoin.get("id"), categoryId));
+            }
+
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        };
+        Page<Product> pages=  productRepository.findAll(specification, PageRequest.of(pageNumber, pageSize));
+        ResponsePageDTO<ProductView> productViewResponsePageDTO= new ResponsePageDTO();
+        productViewResponsePageDTO.setResponseList(productMapper.getProductsPage(pages));
+        productViewResponsePageDTO.setTotalPages(pages.getTotalPages());
+        productViewResponsePageDTO.setCurrentPage(pageNumber);
+        productViewResponsePageDTO.setPageSize(pageSize);
+        return productViewResponsePageDTO;
+    }
+
 
 }
