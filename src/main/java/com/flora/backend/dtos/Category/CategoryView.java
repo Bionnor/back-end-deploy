@@ -14,6 +14,6 @@ public class CategoryView {
     private Date createdAt;
     private Date updatedAt;
     private boolean isActive;
-    private Category parentCategory;
-    private List<Category> subcategories;
+    private CategoryView parentCategory;
+    private List<CategoryView> subcategories;
 }

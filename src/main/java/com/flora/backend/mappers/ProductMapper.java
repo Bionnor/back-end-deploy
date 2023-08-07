@@ -10,12 +10,15 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface ProductMapper {
+
     ProductView fromProductToProductView(Product product);
     Product fromProductViewToProduct(ProductView productView);
     @Mapping(target="idCategory", source="category.id")
     ProductSaveDTO fromProductToProductSave(Product product);
     @Mapping(target="category.id", source="idCategory")
     Product fromProductSaveToProduct(ProductSaveDTO productSaveDTO);
+
+
     List<ProductView> fromProductsToProductViews(List<Product> products);
 
     List<ProductView> getProductsPage(Page<Product> pages);

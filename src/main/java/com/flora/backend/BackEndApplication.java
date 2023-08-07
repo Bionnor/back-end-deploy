@@ -82,8 +82,10 @@ public class BackEndApplication {
 
 			// Create and save categories
 
+
 			Category category = new Category();
 			category.setName("Electronics");
+
 			categoryRepository.save(category);
 
 			Category categoryPhone = new Category();
@@ -105,6 +107,10 @@ public class BackEndApplication {
 			Category categoryCamera = new Category(); // Corrected the variable name
 			categoryCamera.setName("Cameras");
 			categoryRepository.save(categoryCamera);
+
+
+
+
 
 // Create and save products
 

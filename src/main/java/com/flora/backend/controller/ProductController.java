@@ -76,5 +76,8 @@ public class ProductController {
     public ProductSaveDTO addProduct(@RequestBody ProductSaveDTO productSaveDTO) {
         return productService.addProduct(productSaveDTO);
     }
-
+    @GetMapping("/{id}")
+    public ProductView getProduct(@PathVariable Long id) {
+        return productService.getProduct(id);
+    }
 }

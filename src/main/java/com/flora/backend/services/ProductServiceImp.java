@@ -13,14 +13,12 @@ import com.flora.backend.repository.CategoryRepository;
 import com.flora.backend.repository.ProductRepository;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -140,6 +138,11 @@ public class ProductServiceImp implements ProductService{
         productViewResponsePageDTO.setCurrentPage(pageNumber);
         productViewResponsePageDTO.setPageSize(pageSize);
         return productViewResponsePageDTO;
+    }
+
+    @Override
+    public ProductView getProduct(Long id) {
+        return productMapper.fromProductToProductView(productRepository.getProductById( id));
     }
 
 
