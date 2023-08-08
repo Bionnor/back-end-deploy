@@ -142,7 +142,8 @@ public class ProductServiceImp implements ProductService{
 
     @Override
     public ProductView getProduct(Long id) {
-        return productMapper.fromProductToProductView(productRepository.getProductById( id));
+        return productMapper.fromProductToProductView(productRepository.findById(id).orElseThrow(() -> new RuntimeException(
+                "Product Not Found!")));
     }
 
 
