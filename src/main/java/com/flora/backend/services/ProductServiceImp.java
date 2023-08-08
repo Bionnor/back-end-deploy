@@ -92,7 +92,7 @@ public class ProductServiceImp implements ProductService{
 
     }
     @Override
-    public ProductSaveDTO updateProduct(Long productId, ProductSaveDTO productSaveDTO){
+    public ProductView updateProduct(Long productId, ProductSaveDTO productSaveDTO){
         Product existingProduct = productRepository.findById(productId).orElse(null);
         existingProduct.setUpdatedAt(new Date());
         productMapper.updateFromProductToProductSaveDTO(productSaveDTO,existingProduct);
@@ -101,7 +101,7 @@ public class ProductServiceImp implements ProductService{
    // Set the Category reference to the Product entity
         existingProduct.setCategory(category);
 
-        return productMapper.fromProductToProductSave(productRepository.save(existingProduct));
+        return productMapper.fromProductToProductView(productRepository.save(existingProduct));
     }
     @Override
     public boolean deleteProduct(Long productId){

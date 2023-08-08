@@ -44,8 +44,8 @@ public class ProductController {
         return productService.getFilteredProducts(searchTerm, categoryId, pageSize, pageNumber);
     }
     @PutMapping("/{productId}")
-    public ResponseEntity<ProductSaveDTO> updateProduct(@PathVariable Long productId, @RequestBody ProductSaveDTO updatedProduct) {
-        ProductSaveDTO result = productService.updateProduct(productId, updatedProduct);
+    public ResponseEntity<ProductView> updateProduct(@PathVariable Long productId, @RequestBody ProductSaveDTO updatedProduct) {
+        ProductView result = productService.updateProduct(productId, updatedProduct);
         log.info(result.toString());
         if (result != null) {
             return ResponseEntity.ok(result);

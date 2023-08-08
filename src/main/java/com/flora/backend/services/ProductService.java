@@ -14,7 +14,7 @@ public interface ProductService {
 
     ProductSaveDTO addProduct(ProductSaveDTO productSaveDTO);
 
-    ProductSaveDTO updateProduct(Long productId, ProductSaveDTO productSaveDTO);
+    ProductView updateProduct(Long productId, ProductSaveDTO productSaveDTO);
 
     boolean deleteProduct(Long productId);
 

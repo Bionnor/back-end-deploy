@@ -9,5 +9,6 @@ import java.util.List;
 public interface CategoryService {
     CategoryView findbyCategoryId(Long categoryId);
 
+   CategoryView findCategoryByProductId(Long productId);
     List<CategoryView> ShowCategoriesWithoutPageable();
 }

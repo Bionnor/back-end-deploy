@@ -8,6 +8,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface CategoryMapper {
+
     Category fromCategoryViewToCategory(CategoryView categoryView);
     CategoryView fromCategorytoCategoryView(Category category);
 

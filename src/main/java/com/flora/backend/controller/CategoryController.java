@@ -3,7 +3,9 @@ package com.flora.backend.controller;
 import com.flora.backend.dtos.Category.CategoryView;
 import com.flora.backend.dtos.Product.ProductView;
 import com.flora.backend.dtos.ResponsePageDTO;
+import com.flora.backend.entities.Product;
 import com.flora.backend.services.CategoryService;
+import com.flora.backend.services.ProductService;
 import jdk.jfr.Category;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +22,15 @@ import java.util.List;
 public class CategoryController {
     @Autowired
     CategoryService categoryService;
+    @Autowired
+    ProductService productService;
     @GetMapping("/all")
     public List<CategoryView> ShowCategoriesWithoutPageable() {
         return categoryService.ShowCategoriesWithoutPageable();
+    }
+    @GetMapping("/product/{id}")
+    public CategoryView getCategoryByProduct(@PathVariable Long id) {
+     ;
+        return categoryService.findCategoryByProductId(id);
     }
 }
