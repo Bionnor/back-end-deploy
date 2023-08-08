@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -37,9 +38,9 @@ public class CategoryServiceImp implements CategoryService {
 
     @Override
     public CategoryView findCategoryByProductId(Long productId) {
-        Product product=productRepository.getProductById(productId);
+        Optional<Product> product=productRepository.findById(productId);
 
-        return categoryMapper.fromCategorytoCategoryView(product.getCategory());
+        return categoryMapper.fromCategorytoCategoryView(product.get().getCategory());
     }
 
     @Override
