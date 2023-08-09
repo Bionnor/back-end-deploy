@@ -4,6 +4,10 @@ package com.flora.backend.services;
 import com.flora.backend.dtos.Order.OrderSaveDTO;
 import com.flora.backend.dtos.Order.OrderView;
 import com.flora.backend.dtos.ResponsePageDTO;
+import com.flora.backend.entities.OrderState;
+
+import java.math.BigDecimal;
+import java.util.Date;
 
 public interface OrderService {
     OrderSaveDTO addOrder(OrderSaveDTO productSaveDTO);
@@ -12,7 +16,10 @@ public interface OrderService {
 
     boolean deleteOrder(Long productId);
 
-    ResponsePageDTO<OrderView> getFilteredOrders(String searchTerm, Long categoryId, int pageSize, int pageNumber);
+    public ResponsePageDTO<OrderView> getFilteredOrders(
+             int pageSize, int pageNumber,
+            Date searchDate, OrderState orderState, Long orderId,
+            String customerFullName, BigDecimal minTotalAmount, BigDecimal maxTotalAmount);
 
     OrderView getOrder(Long id);
 }

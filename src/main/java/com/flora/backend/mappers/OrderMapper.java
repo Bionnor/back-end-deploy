@@ -2,7 +2,6 @@ package com.flora.backend.mappers;
 
 import com.flora.backend.dtos.Order.OrderSaveDTO;
 import com.flora.backend.dtos.Order.OrderView;
-import com.flora.backend.entities.Order;
 import com.flora.backend.entities.Orders;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,9 +16,9 @@ public interface OrderMapper {
 
     OrderView fromOrderToOrderView(Orders order);
     Orders fromOrderViewToOrder(OrderView orderView);
-    @Mapping(target="idCategory", source="category.id")
+    @Mapping(target="idCustomer", source="customer.id")
     OrderSaveDTO fromOrderToOrderSave(Orders order);
-    @Mapping(target="category.id", source="idCategory")
+    @Mapping(target="customer.id", source="idCustomer")
     Orders fromOrderSaveToOrder(OrderSaveDTO orderSaveDTO);
 
 
@@ -27,8 +26,8 @@ public interface OrderMapper {
 
     List<OrderView> getOrdersPage(Page<Orders> pages);
 
-    @Mapping(target = "id", ignore = true) // Ignore updating the ID
-    @Mapping(target="category.id", source="idCategory", ignore = true)
+    @Mapping(target = "orderId", ignore = true) // Ignore updating the ID
+    @Mapping(target="customer.id", source="idCustomer", ignore = true)
     void updateFromOrderToOrderSaveDTO(OrderSaveDTO orderSaveDTO, @MappingTarget Orders order);
 
 }

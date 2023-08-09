@@ -1,15 +1,21 @@
 package com.flora.backend.controller;
 
 
-import com.flora.backend.dtos.Product.ProductSaveDTO;
-import com.flora.backend.dtos.Product.ProductView;
+import com.flora.backend.dtos.Order.FilteredOrdersRequestDTO;
+import com.flora.backend.dtos.Order.OrderSaveDTO;
+import com.flora.backend.dtos.Order.OrderView;
 import com.flora.backend.dtos.ResponsePageDTO;
-import com.flora.backend.services.ProductService;
+import com.flora.backend.entities.OrderState;
+import com.flora.backend.services.OrderService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
+import java.util.Date;
 
 @RestController
 @AllArgsConstructor
@@ -18,33 +24,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/orders")
 public class OrderController {
     @Autowired
-    private ProductService productService;
+    private OrderService orderService;
 
-    @GetMapping("/")
-    public ResponsePageDTO<ProductView> ShowProducts(@RequestParam(name = "page", defaultValue = "0") int page,
-                                        @RequestParam(name = "size", defaultValue = "6") int size) {
-
-        return productService.showProducts(page, size);
-    }
-    @GetMapping("/by-category")
-    public ResponsePageDTO<ProductView> ShowProductsByCategory(
-            @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "category_id") Long categoryId,
-            @RequestParam(name = "size", defaultValue = "6") int size) {
-
-        return productService.findByCategory(page, size,categoryId);
-    }
     @GetMapping
-    public ResponsePageDTO<ProductView> getFilteredProducts(
-            @RequestParam(required = false) String searchTerm,
-            @RequestParam(required = false) Long categoryId,
-            @RequestParam(defaultValue = "5") int pageSize,
-            @RequestParam(defaultValue = "0") int pageNumber) {
-        return productService.getFilteredProducts(searchTerm, categoryId, pageSize, pageNumber);
+    public ResponseEntity<ResponsePageDTO<OrderView>> getFilteredOrders(@ModelAttribute FilteredOrdersRequestDTO requestDTO) {
+        ResponsePageDTO<OrderView> result = orderService.getFilteredOrders(
+                requestDTO.getPageSize(), requestDTO.getPageNumber(),
+                requestDTO.getSearchDate(), requestDTO.getOrderState(), requestDTO.getOrderId(), requestDTO.getCustomerFullName(),
+                requestDTO.getMinTotalAmount(), requestDTO.getMaxTotalAmount());
+        return ResponseEntity.ok(result);
     }
     @PutMapping("/{productId}")
-    public ResponseEntity<ProductView> updateProduct(@PathVariable Long productId, @RequestBody ProductSaveDTO updatedProduct) {
-        ProductView result = productService.updateProduct(productId, updatedProduct);
+    public ResponseEntity<OrderView> updateOrder(@PathVariable Long productId, @RequestBody OrderSaveDTO updatedOrder) {
+        OrderView result = orderService.updateOrder(productId, updatedOrder);
         log.info(result.toString());
         if (result != null) {
             return ResponseEntity.ok(result);
@@ -53,8 +45,8 @@ public class OrderController {
         }
     }
     @DeleteMapping("/{productId}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long productId) {
-        boolean isDeleted = productService.deleteProduct(productId);
+    public ResponseEntity<Void> deleteOrder(@PathVariable Long productId) {
+        boolean isDeleted = orderService.deleteOrder(productId);
 
         if (isDeleted) {
             return ResponseEntity.noContent().build(); // 204 No Content
@@ -63,20 +55,13 @@ public class OrderController {
         }
     }
 
-    @GetMapping("/search")
-    public ResponsePageDTO<ProductView> searchProduct(@RequestParam(name = "keyword", defaultValue = "") String keyword,
-                                    @RequestParam(name = "page", defaultValue = "0") int page,
-                                    @RequestParam(name = "size", defaultValue = "6") int size) {
-
-        return productService.SearchProducts("%" + keyword + "%", page, size);
-    }
 
     @PostMapping("/")
-    public ProductSaveDTO addProduct(@RequestBody ProductSaveDTO productSaveDTO) {
-        return productService.addProduct(productSaveDTO);
+    public OrderSaveDTO addOrder(@RequestBody OrderSaveDTO productSaveDTO) {
+        return orderService.addOrder(productSaveDTO);
     }
     @GetMapping("/{id}")
-    public ProductView getProduct(@PathVariable Long id) {
-        return productService.getProduct(id);
+    public OrderView getOrder(@PathVariable Long id) {
+        return orderService.getOrder(id);
     }
 }
