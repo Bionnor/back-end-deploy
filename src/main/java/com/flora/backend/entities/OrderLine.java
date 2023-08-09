@@ -9,7 +9,6 @@ public class OrderLine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderLineId;
-
     private int quantity;
     private BigDecimal unitPrice;
     private BigDecimal subtotal;
