@@ -37,7 +37,7 @@ public class SecurityConfig {
         return httpSecurity.csrf().disable()
                 .cors().and()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/**","/users","/products/**","/category/**").permitAll()
+                .requestMatchers("/auth/**","/users","/products/**","/category/**","/reviews/**","/reviews/by-product/**").permitAll()
                 .requestMatchers("/moderator/**")
                 .hasAnyRole("ROLE_MODERATOR_PRODUCT","ROLE_MODERATOR_BLOG")
                 .requestMatchers("/admin/**","/moderator/**")

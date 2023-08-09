@@ -30,7 +30,8 @@ public class BackEndApplication {
 							UserRepository userRepository,
 							ProductRepository productRepository,
 							PasswordEncoder passwordEncoder,
-							CategoryRepository categoryRepository
+							CategoryRepository categoryRepository,
+							ReviewRepository reviewRepository
 							){
 
 		return args -> {
@@ -78,6 +79,32 @@ public class BackEndApplication {
 			customer.setSexe(true);
 			customer.getRoles().add(customerRole);
 			userRepository.save(customer);
+
+
+			Customer customer1 = new Customer();
+			customer1.setUsername("customer1");
+			customer1.setPassword(passwordEncoder.encode("customer1"));
+			customer1.setEmail("customer1@gmail.com");
+			customer1.setPhone("0629174033");
+			customer1.setPhotoUrl("photo.jpg");
+			customer1.setFirstName("inass");
+			customer1.setLastName("zaadane");
+			customer1.setSexe(true);
+			customer1.getRoles().add(customerRole);
+			userRepository.save(customer1);
+
+			Customer customer2 = new Customer();
+			customer2.setUsername("customer2");
+			customer2.setPassword(passwordEncoder.encode("customer2"));
+			customer2.setEmail("customer2@gmail.com");
+			customer2.setPhone("0629174033");
+			customer2.setPhotoUrl("photo.jpg");
+			customer2.setFirstName("rida");
+			customer2.setLastName("bahni");
+			customer2.setSexe(false);
+			customer2.getRoles().add(customerRole);
+			userRepository.save(customer2);
+
 
 
 			// Create and save categories
@@ -194,10 +221,63 @@ public class BackEndApplication {
 
 			productRepository.saveAll(List.of(product1,product2,productTV,productMonitor,product3, product4, product5));
 
+			//reviews
+			Review newReview = new Review();
+			newReview.setCustomer(customer1);
+			newReview.setProduct(product1);
+			newReview.setDateavis(new Date());
+
+			newReview.setNumetoile(Rate.TROIX);
+
+			newReview.setContent("This is a great product. I'm really satisfied!");
+
+			reviewRepository.save(newReview);
+
+			Review newReview1 = new Review();
+			newReview1.setCustomer(customer2);
+			newReview1.setProduct(product2);
+			newReview1.setDateavis(new Date());
+
+			newReview1.setNumetoile(Rate.QUATRE);
+
+			newReview1.setContent("The product exceeded my expectations. Highly recommended!");
+
+			reviewRepository.save(newReview1);
 
 
+			Review newReview2 = new Review();
+			newReview2.setCustomer(customer2);
+			newReview2.setProduct(product2);
+			newReview2.setDateavis(new Date());
+			newReview2.setNumetoile(Rate.CINQ);
+			newReview2.setContent("The product exceeded my expectations. Highly recommended!");
 
+			reviewRepository.save(newReview2);
+			Review newReview3 = new Review();
+			newReview3.setCustomer(customer2);
+			newReview3.setProduct(product2);
+			newReview3.setDateavis(new Date());
+			newReview3.setNumetoile(Rate.CINQ);
+			newReview3.setContent("The product exceeded my expectations. Highly recommended!");
 
+			reviewRepository.save(newReview3);
+
+			Review newReview4 = new Review();
+			newReview4.setCustomer(customer2);
+			newReview4.setProduct(product2);
+			newReview4.setDateavis(new Date());
+			newReview4.setNumetoile(Rate.CINQ);
+			newReview4.setContent("The product exceeded my expectations. Highly recommended!");
+
+			reviewRepository.save(newReview4);
+			Review newReview5= new Review();
+			newReview5.setCustomer(customer2);
+			newReview5.setProduct(product2);
+			newReview5.setDateavis(new Date());
+			newReview5.setNumetoile(Rate.CINQ);
+			newReview5.setContent("The product exceeded my expectations. Highly recommended!");
+
+			reviewRepository.save(newReview5);
 		};
 	}
 }
