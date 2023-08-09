@@ -1,26 +1,25 @@
-package com.flora.backend.entities;
+package com.flora.backend.dtos.Order;
 
-import jakarta.persistence.*;
+import com.flora.backend.dtos.Customer.CustomerView;
+import com.flora.backend.entities.OrderState;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
-@Entity
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Orders {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class OrderSaveDTO {
     private Long orderId;
-
     private Date orderDate;
     private String shippingAddress;
     private BigDecimal totalAmount;
     @Enumerated(EnumType.STRING)
     private OrderState orderState;
-    @ManyToOne
-    private Customer customer;
+    private Long idCustomer;
 }

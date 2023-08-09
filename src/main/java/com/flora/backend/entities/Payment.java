@@ -7,20 +7,19 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
-@Entity
+
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Orders {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "payment_type", discriminatorType = DiscriminatorType.STRING)
+public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderId;
-
-    private Date orderDate;
-    private String shippingAddress;
-    private BigDecimal totalAmount;
+    private Long paymentId;
+    private BigDecimal amount;
+    private Date paymentDate;
     @Enumerated(EnumType.STRING)
-    private OrderState orderState;
-    @ManyToOne
-    private Customer customer;
+    private PaymentMethod paymentMethod;
 }
