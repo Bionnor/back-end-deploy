@@ -4,6 +4,7 @@ package com.flora.backend.controller;
 import com.flora.backend.dtos.Order.FilteredOrdersRequestDTO;
 import com.flora.backend.dtos.Order.OrderSaveDTO;
 import com.flora.backend.dtos.Order.OrderView;
+import com.flora.backend.dtos.Product.ProductView;
 import com.flora.backend.dtos.ResponsePageDTO;
 import com.flora.backend.entities.OrderState;
 import com.flora.backend.services.OrderService;
@@ -16,11 +17,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
 @Slf4j
 @CrossOrigin("*")
+
 @RequestMapping("/orders")
 public class OrderController {
     @Autowired
@@ -34,9 +37,14 @@ public class OrderController {
                 requestDTO.getMinTotalAmount(), requestDTO.getMaxTotalAmount());
         return ResponseEntity.ok(result);
     }
-    @PutMapping("/{productId}")
-    public ResponseEntity<OrderView> updateOrder(@PathVariable Long productId, @RequestBody OrderSaveDTO updatedOrder) {
-        OrderView result = orderService.updateOrder(productId, updatedOrder);
+    @GetMapping("/{orderId}/products")
+    public ResponseEntity<List<ProductView>> getProductsByOrderId(@PathVariable Long orderId) {
+        List<ProductView> products = orderService.getProductsByOrderId(orderId);
+        return ResponseEntity.ok(products);
+    }
+    @PutMapping("/{orderId}")
+    public ResponseEntity<OrderView> updateOrder(@PathVariable Long orderId, @RequestBody OrderSaveDTO updatedOrder) {
+        OrderView result = orderService.updateOrder(orderId, updatedOrder);
         log.info(result.toString());
         if (result != null) {
             return ResponseEntity.ok(result);
@@ -44,9 +52,9 @@ public class OrderController {
             return ResponseEntity.notFound().build();
         }
     }
-    @DeleteMapping("/{productId}")
-    public ResponseEntity<Void> deleteOrder(@PathVariable Long productId) {
-        boolean isDeleted = orderService.deleteOrder(productId);
+    @DeleteMapping("/{orderId}")
+    public ResponseEntity<Void> deleteOrder(@PathVariable Long orderId) {
+        boolean isDeleted = orderService.deleteOrder(orderId);
 
         if (isDeleted) {
             return ResponseEntity.noContent().build(); // 204 No Content

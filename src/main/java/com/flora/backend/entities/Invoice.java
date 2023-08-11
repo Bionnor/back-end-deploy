@@ -10,12 +10,14 @@ public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long invoiceId;
-
     private BigDecimal amount;
     private Date issueDate;
     private Date dueDate;
     @Enumerated(EnumType.STRING)
     private OrderState status;
+    @OneToOne(mappedBy = "invoice")
+    private Orders order;
 
-    // Getters and setters
+    @OneToOne(mappedBy = "invoice")
+    private Payment payment;
 }

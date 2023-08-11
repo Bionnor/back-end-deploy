@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -41,5 +42,7 @@ public class Product {
 
 
     private boolean isActive;
+    @OneToMany(mappedBy = "product")
+    private List<OrderLine> orderLines;
 
 }
