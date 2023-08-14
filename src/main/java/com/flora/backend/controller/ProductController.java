@@ -4,7 +4,6 @@ package com.flora.backend.controller;
 import com.flora.backend.dtos.Product.ProductSaveDTO;
 import com.flora.backend.dtos.Product.ProductView;
 import com.flora.backend.dtos.ResponsePageDTO;
-import com.flora.backend.entities.Product;
 import com.flora.backend.services.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +42,9 @@ public class ProductController {
             @RequestParam(defaultValue = "0") int pageNumber) {
         return productService.getFilteredProducts(searchTerm, categoryId, pageSize, pageNumber);
     }
+
+
+
     @PutMapping("/{productId}")
     public ResponseEntity<ProductView> updateProduct(@PathVariable Long productId, @RequestBody ProductSaveDTO updatedProduct) {
         ProductView result = productService.updateProduct(productId, updatedProduct);

@@ -1,8 +1,12 @@
-package com.flora.backend.dtos.Product;
+
+package com.flora.backend.dtos.Cosmetic;
 
 import com.flora.backend.dtos.Category.CategoryView;
-import com.flora.backend.dtos.Review.ReviewShow;
-import com.flora.backend.entities.Category;
+import com.flora.backend.dtos.Property.AcideGrasView;
+import com.flora.backend.dtos.Property.FormuleView;
+import com.flora.backend.dtos.Property.OrganolepticView;
+
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class ProductView {
+public class CosmeticView {
     private Long id;
     private String name;
 
@@ -26,13 +30,18 @@ public class ProductView {
 
     private CategoryView category;
 
-
     private String imageUrl;
 
     private Date createdAt;
     private Date updatedAt;
-
     private boolean isActive;
-    private List<ReviewShow> reviewShowList;
+    private  String Nombotanique;
+    private String Organepresse;
+    private String obtention;
+    private String payorigine;
 
+     private OrganolepticView organoleptic;
+     private FormuleView formule;
+     private AcideGrasView acideGras;
 }
+

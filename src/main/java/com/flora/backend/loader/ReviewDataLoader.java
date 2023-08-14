@@ -24,8 +24,8 @@ public class ReviewDataLoader implements CommandLineRunner {
     ProductRepository productRepository;
     @Override
     public void run(String... args) throws Exception {
-        Customer customer = customerRepository.findByUsername("customer").orElseThrow(()->new RuntimeException("not found"));
-        Product product = productRepository.findById(1L).orElseThrow(()->new RuntimeException("not found"));
+/*    Customer customer = customerRepository.findByUsername("customer").orElseThrow(()->new RuntimeException("not found"));
+        Product product = productRepository.findById(2L).orElseThrow(()->new RuntimeException("not found"));
         Review review=new Review();
         review.setDateavis(new Date());
         review.setCustomer(customer);
@@ -33,7 +33,8 @@ public class ReviewDataLoader implements CommandLineRunner {
         review.setContent("Great product! It's simple to use and does the job perfectly. I'm impressed with the quality and performance. Highly recommended.");
         review.setProduct(product);
 
-        reviewRepository.save(review);
+        reviewRepository.save(review);*/
+
 
 
 

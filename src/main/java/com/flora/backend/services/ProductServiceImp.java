@@ -6,6 +6,7 @@ import com.flora.backend.dtos.Product.ProductSaveDTO;
 import com.flora.backend.dtos.Product.ProductView;
 import com.flora.backend.dtos.ResponsePageDTO;
 import com.flora.backend.entities.Category;
+import com.flora.backend.entities.FinalProduct;
 import com.flora.backend.entities.Product;
 import com.flora.backend.mappers.CategoryMapper;
 import com.flora.backend.mappers.ProductMapper;
@@ -45,7 +46,7 @@ public class ProductServiceImp implements ProductService{
     private CategoryMapper categoryMapper;
     @Override
     public ResponsePageDTO<ProductView> showProducts(int page, int size) {
-        Page<Product> pages= productRepository.findAll(PageRequest.of(page, size));
+        Page<FinalProduct> pages= productRepository.findAll(PageRequest.of(page, size));
 
         ResponsePageDTO<ProductView> productpageDTO= new ResponsePageDTO<>();
         productpageDTO.setResponseList(productMapper.getProductsPage(pages));
@@ -59,7 +60,7 @@ public class ProductServiceImp implements ProductService{
     @Override
     public ResponsePageDTO<ProductView> SearchProducts(String keyword, int page, int size) {
 
-        Page<Product> pages=  productRepository.searchProduct(keyword,keyword,PageRequest.of(page, size));
+        Page<FinalProduct> pages=  productRepository.searchProduct(keyword,keyword,PageRequest.of(page, size));
         ResponsePageDTO<ProductView> productViewResponsePageDTO= new ResponsePageDTO();
         productViewResponsePageDTO.setResponseList(productMapper.getProductsPage(pages));
         productViewResponsePageDTO.setTotalPages(pages.getTotalPages());
@@ -72,7 +73,7 @@ public class ProductServiceImp implements ProductService{
     @Override
     public ResponsePageDTO<ProductView> findByCategory(int page, int size, Long categoryId) {
         CategoryView category = categoryService.findbyCategoryId(categoryId);
-        Page<Product> pages=  productRepository.getProductsByCategory(
+        Page<FinalProduct> pages=  productRepository.getProductsByCategory(
                 categoryMapper.fromCategoryViewToCategory(category),PageRequest.of(page, size));
         ResponsePageDTO<ProductView> productViewResponsePageDTO= new ResponsePageDTO();
         productViewResponsePageDTO.setResponseList(productMapper.getProductsPage(pages));
@@ -84,7 +85,7 @@ public class ProductServiceImp implements ProductService{
 
     @Override
     public ProductSaveDTO addProduct(ProductSaveDTO productSaveDTO) {
-        Product product=productMapper.fromProductSaveToProduct(productSaveDTO);
+        FinalProduct product=productMapper.fromProductSaveToProduct(productSaveDTO);
         log.info(productSaveDTO.toString());
         product.setCreatedAt(new Date());
         product.setActive(false);
@@ -93,7 +94,7 @@ public class ProductServiceImp implements ProductService{
     }
     @Override
     public ProductView updateProduct(Long productId, ProductSaveDTO productSaveDTO){
-        Product existingProduct = productRepository.findById(productId).orElse(null);
+        FinalProduct existingProduct = productRepository.findById(productId).orElse(null);
         existingProduct.setUpdatedAt(new Date());
         productMapper.updateFromProductToProductSaveDTO(productSaveDTO,existingProduct);
         // Fetch the Category entity from the database using the idCategory from the DTO
@@ -106,7 +107,7 @@ public class ProductServiceImp implements ProductService{
     @Override
     public boolean deleteProduct(Long productId){
         // Check if the product with the given ID exists
-        Product existingProduct = productRepository.findById(productId).orElse(null);
+        FinalProduct existingProduct = productRepository.findById(productId).orElse(null);
         if (existingProduct != null) {
             productRepository.delete(existingProduct);
             return true;
@@ -117,7 +118,7 @@ public class ProductServiceImp implements ProductService{
     @Override
     public ResponsePageDTO<ProductView> getFilteredProducts(String searchTerm, Long categoryId, int pageSize, int pageNumber) {
 
-        Specification<Product> specification = (root, query, criteriaBuilder) -> {
+        Specification<FinalProduct> specification = (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 
             if (searchTerm != null && !searchTerm.isEmpty()) {
@@ -125,13 +126,13 @@ public class ProductServiceImp implements ProductService{
             }
 
             if (categoryId != null) {
-                Join<Product, Category> categoryJoin = root.join("category");
+                Join<FinalProduct, Category> categoryJoin = root.join("category");
                 predicates.add(criteriaBuilder.equal(categoryJoin.get("id"), categoryId));
             }
 
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
-        Page<Product> pages=  productRepository.findAll(specification, PageRequest.of(pageNumber, pageSize));
+        Page<FinalProduct> pages=  productRepository.findAll(specification, PageRequest.of(pageNumber, pageSize));
         ResponsePageDTO<ProductView> productViewResponsePageDTO= new ResponsePageDTO();
         productViewResponsePageDTO.setResponseList(productMapper.getProductsPage(pages));
         productViewResponsePageDTO.setTotalPages(pages.getTotalPages());

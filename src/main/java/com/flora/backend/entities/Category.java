@@ -27,6 +27,6 @@ public class Category {
     @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Category> subcategories;
     @OneToMany(mappedBy = "category",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Product> products;
+    private List<FinalProduct> products;
 
 }

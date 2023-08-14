@@ -1,11 +1,9 @@
 package com.flora.backend.services;
 
 import com.flora.backend.dtos.Category.CategoryView;
-import com.flora.backend.dtos.Product.ProductView;
-import com.flora.backend.entities.Category;
+import com.flora.backend.entities.FinalProduct;
 import com.flora.backend.entities.Product;
 import com.flora.backend.mappers.CategoryMapper;
-import com.flora.backend.mappers.ProductMapper;
 import com.flora.backend.repository.CategoryRepository;
 import com.flora.backend.repository.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -38,7 +36,7 @@ public class CategoryServiceImp implements CategoryService {
 
     @Override
     public CategoryView findCategoryByProductId(Long productId) {
-        Optional<Product> product=productRepository.findById(productId);
+        Optional<FinalProduct> product=productRepository.findById(productId);
 
         return categoryMapper.fromCategorytoCategoryView(product.get().getCategory());
     }

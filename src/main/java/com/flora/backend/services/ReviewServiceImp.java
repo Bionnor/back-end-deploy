@@ -4,7 +4,6 @@ import com.flora.backend.dtos.Product.ProductView;
 import com.flora.backend.dtos.ResponsePageDTO;
 
 import com.flora.backend.dtos.Review.ReviewShow;
-import com.flora.backend.entities.Category;
 import com.flora.backend.entities.Product;
 import com.flora.backend.entities.Review;
 import com.flora.backend.mappers.ProductMapper;

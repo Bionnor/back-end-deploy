@@ -21,4 +21,5 @@ public interface ProductService {
     ResponsePageDTO<ProductView> getFilteredProducts(String searchTerm, Long categoryId, int pageSize, int pageNumber);
 
     ProductView getProduct(Long id);
+
 }
