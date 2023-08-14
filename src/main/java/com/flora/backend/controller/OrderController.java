@@ -6,12 +6,17 @@ import com.flora.backend.dtos.Order.OrderSaveDTO;
 import com.flora.backend.dtos.Order.OrderView;
 import com.flora.backend.dtos.Product.ProductView;
 import com.flora.backend.dtos.ResponsePageDTO;
+import com.flora.backend.entities.OrderLine;
 import com.flora.backend.entities.OrderState;
+import com.flora.backend.services.InvoiceService;
 import com.flora.backend.services.OrderService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +33,18 @@ import java.util.List;
 public class OrderController {
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private InvoiceService invoiceService;
+    @GetMapping("/generate/{orderId}")
+    public ResponseEntity<byte[]> generateInvoicePDF(@PathVariable Long orderId) {
+        byte[] pdfContent = this.invoiceService.generateInvoicePDF(orderId);
 
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachment", "invoice.pdf");
+
+        return new ResponseEntity<>(pdfContent, headers, HttpStatus.OK);
+    }
     @GetMapping
     public ResponseEntity<ResponsePageDTO<OrderView>> getFilteredOrders(@ModelAttribute FilteredOrdersRequestDTO requestDTO) {
         ResponsePageDTO<OrderView> result = orderService.getFilteredOrders(

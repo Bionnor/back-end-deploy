@@ -17,4 +17,5 @@ public class PaymentView {
     private BigDecimal amount;
     private Date paymentDate;
     private PaymentMethod paymentMethod;
+    private String deliveryAddress;
 }

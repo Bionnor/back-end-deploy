@@ -21,5 +21,4 @@ public class InvoiceView {
     private Date issueDate;
     private Date dueDate;
     private OrderState status;
-    private PaymentView payment;
 }

@@ -23,6 +23,6 @@ public class Payment {
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
     @OneToOne
-    @JoinColumn(name = "invoice_id")
-    private Invoice invoice;
+    @JoinColumn(name = "order_id")
+    private Orders order;
 }

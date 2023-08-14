@@ -22,11 +22,14 @@ public class Orders {
     private BigDecimal totalAmount;
     @Enumerated(EnumType.STRING)
     private OrderState orderState;
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
     private List<OrderLine> orderLines;
-    @OneToOne
-    @JoinColumn(name = "invoice_id")
+    @OneToOne(mappedBy = "order")
     private Invoice invoice;
+
+    @OneToOne(mappedBy = "order")
+    private Payment payment;
+
     @ManyToOne
     private Customer customer;
 }
