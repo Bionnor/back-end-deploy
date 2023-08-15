@@ -3,6 +3,7 @@ package com.flora.backend.mappers;
 import com.flora.backend.dtos.Product.ProductSaveDTO;
 import com.flora.backend.dtos.Product.ProductView;
 import com.flora.backend.entities.FinalProduct;
+import com.flora.backend.entities.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -22,7 +23,7 @@ public interface ProductMapper {
     FinalProduct fromProductSaveToProduct(ProductSaveDTO productSaveDTO);
 
 
-    List<ProductView> fromProductsToProductViews(List<FinalProduct> products);
+    List<ProductView> fromProductsToProductViews(List<Product> products);
 
     List<ProductView> getProductsPage(Page<FinalProduct> pages);
 

@@ -39,6 +39,7 @@ public class CosmeticView {
     private String Organepresse;
     private String obtention;
     private String payorigine;
+    private int litrage[];
 
      private OrganolepticView organoleptic;
      private FormuleView formule;

@@ -4,15 +4,14 @@ package com.flora.backend.services;
 import com.flora.backend.dtos.Category.CategoryView;
 import com.flora.backend.dtos.Order.OrderSaveDTO;
 import com.flora.backend.dtos.Order.OrderView;
+import com.flora.backend.dtos.Product.ProductView;
 import com.flora.backend.dtos.ResponsePageDTO;
-import com.flora.backend.entities.Category;
-import com.flora.backend.entities.Customer;
-import com.flora.backend.entities.OrderState;
-import com.flora.backend.entities.Orders;
+import com.flora.backend.entities.*;
 import com.flora.backend.exceptions.DataAccessException;
 import com.flora.backend.exceptions.ResourceNotFoundException;
 import com.flora.backend.mappers.CategoryMapper;
 import com.flora.backend.mappers.OrderMapper;
+import com.flora.backend.mappers.ProductMapper;
 import com.flora.backend.repository.CategoryRepository;
 import com.flora.backend.repository.OrderRepository;
 import jakarta.persistence.criteria.Join;
@@ -28,9 +27,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.flora.backend.Utils.ResponsePageUtils.createResponsePage;
 
@@ -45,6 +43,8 @@ public class OrderServiceImp implements OrderService{
 
     @Autowired
     private OrderMapper orderMapper;
+    @Autowired
+    private ProductMapper productMapper;
 
     @Override
     public OrderSaveDTO addOrder(OrderSaveDTO orderSaveDTO) {
@@ -71,7 +71,20 @@ public class OrderServiceImp implements OrderService{
             throw new RuntimeException("Error while updating order", ex);
         }
     }
+    public List<ProductView> getProductsByOrderId(Long orderId) {
+        Optional<Orders> optionalOrder = orderRepository.findById(orderId);
 
+        if (optionalOrder.isPresent()) {
+            Orders order = optionalOrder.get();
+            List<Product> products = order.getOrderLines().stream()
+                    .map(OrderLine::getProduct)
+                    .collect(Collectors.toList());
+
+            return productMapper.fromProductsToProductViews(products);
+        }
+
+        return Collections.emptyList();
+    }
     @Override
     public boolean deleteOrder(Long orderId) {
         try {

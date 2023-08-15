@@ -1,7 +1,9 @@
 package com.flora.backend.mappers;
 
+import com.flora.backend.dtos.InvoiceView;
 import com.flora.backend.dtos.Order.OrderSaveDTO;
 import com.flora.backend.dtos.Order.OrderView;
+import com.flora.backend.entities.Invoice;
 import com.flora.backend.entities.Orders;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -15,6 +17,7 @@ import java.util.List;
 public interface OrderMapper {
 
     OrderView fromOrderToOrderView(Orders order);
+    Invoice map(InvoiceView value);
     Orders fromOrderViewToOrder(OrderView orderView);
     @Mapping(target="idCustomer", source="customer.id")
     OrderSaveDTO fromOrderToOrderSave(Orders order);

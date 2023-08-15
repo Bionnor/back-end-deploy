@@ -49,6 +49,8 @@ public class CosmeticIngredientLoader implements CommandLineRunner {
         cosmetic1.setObtention("Première pression à froid");
         cosmetic1.setPrice(100);
         cosmetic1.setQuantity(2);
+        int[] litrageArray = {100, 200, 300};
+        cosmetic1.setLitrage(litrageArray);
 
 // Organoleptic
         Organoleptic organoleptic = new Organoleptic();
@@ -80,6 +82,7 @@ public class CosmeticIngredientLoader implements CommandLineRunner {
         cosmetic1.setOrganoleptic(organoleptic);
         cosmetic1.setAcidesGras(acidesGras);
         cosmetic1.setFormule(formule);
+
 
 // Enregistrer l'instance de CosmeticIngredient
         cosmeticIngredientRepository.save(cosmetic1);
@@ -138,7 +141,8 @@ public class CosmeticIngredientLoader implements CommandLineRunner {
         cosmetic2.setAcidesGras(acidesGras1);
         cosmetic2.setFormule(formule1);
         cosmetic2.setImageUrl("https://images.pexels.com/photos/5462207/pexels-photo-5462207.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
-
+        int[] litrage1 = {100, 200, 300};
+        cosmetic2.setLitrage(litrage1);
 
         cosmeticIngredientRepository.save(cosmetic2);
 
@@ -148,6 +152,8 @@ public class CosmeticIngredientLoader implements CommandLineRunner {
         cosmetic3.setImageUrl("https://images.pexels.com/photos/5462207/pexels-photo-5462207.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
         cosmetic3.setPayorigine("Maroc");
         cosmetic3.setQuantity(50);
+        int[] litrage2 = {100, 200, 300};
+        cosmetic3.setLitrage(litrage2);
 
         cosmeticIngredientRepository.save(cosmetic3);
 
@@ -157,6 +163,8 @@ public class CosmeticIngredientLoader implements CommandLineRunner {
         cosmetic4.setImageUrl("https://images.pexels.com/photos/5462207/pexels-photo-5462207.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
         cosmetic4.setPayorigine("Maroc");
         cosmetic4.setQuantity(50);
+        int[] litrage3 = {100, 200, 300};
+        cosmetic4.setLitrage(litrage3);
         cosmeticIngredientRepository.save(cosmetic4);
 
 // Scalp Oiling For Growth & Thickness
@@ -165,6 +173,8 @@ public class CosmeticIngredientLoader implements CommandLineRunner {
         cosmetic5.setImageUrl("https://images.pexels.com/photos/5462207/pexels-photo-5462207.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
         cosmetic5.setPayorigine("Maroc");
         cosmetic5.setQuantity(50);
+        int[] litrage4 = {100, 200, 300};
+        cosmetic5.setLitrage(litrage4);
         cosmeticIngredientRepository.save(cosmetic5);
 
 // Huile Visage Régénérante Aromathérapie
@@ -174,6 +184,7 @@ public class CosmeticIngredientLoader implements CommandLineRunner {
         cosmetic6.setImageUrl("https://images.pexels.com/photos/5462207/pexels-photo-5462207.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
         cosmetic6.setPayorigine("Maroc");
         cosmetic6.setQuantity(50);
+        cosmetic6.setLitrage(litrageArray);
         cosmeticIngredientRepository.save(cosmetic6);
 
 // Nourishing Miracle Body Oil/ soin corporel nourrissant
@@ -183,6 +194,7 @@ public class CosmeticIngredientLoader implements CommandLineRunner {
         cosmetic7.setImageUrl("https://images.pexels.com/photos/5462207/pexels-photo-5462207.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
         cosmetic7.setPayorigine("Maroc");
         cosmetic7.setQuantity(50);
+        cosmetic7.setLitrage(litrageArray);
         cosmeticIngredientRepository.save(cosmetic7);
 
 // Poudre exfoliante de pépins de figues de Barbarie
@@ -191,6 +203,7 @@ public class CosmeticIngredientLoader implements CommandLineRunner {
         cosmetic8.setImageUrl("https://images.pexels.com/photos/5462207/pexels-photo-5462207.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
         cosmetic8.setPayorigine("Maroc");
         cosmetic8.setQuantity(50);
+        cosmetic8.setLitrage(litrageArray);
         cosmeticIngredientRepository.save(cosmetic8);
 
 // Poudre exfoliante de pépins de grenades
@@ -199,6 +212,7 @@ public class CosmeticIngredientLoader implements CommandLineRunner {
         cosmetic9.setImageUrl("https://images.pexels.com/photos/5462207/pexels-photo-5462207.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
         cosmetic9.setPayorigine("Maroc");
         cosmetic9.setQuantity(50);
+        cosmetic9.setLitrage(litrageArray);
         cosmeticIngredientRepository.save(cosmetic9);
 
 // Poudre exfoliante de noyaux de dattes
@@ -207,6 +221,7 @@ public class CosmeticIngredientLoader implements CommandLineRunner {
         cosmetic10.setImageUrl("https://images.pexels.com/photos/5462207/pexels-photo-5462207.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
         cosmetic10.setPayorigine("Maroc");
         cosmetic10.setQuantity(50);
+        cosmetic10.setLitrage(litrageArray);
         cosmeticIngredientRepository.save(cosmetic10);
 
 // Poudre de betteraves biologiques
@@ -216,6 +231,8 @@ public class CosmeticIngredientLoader implements CommandLineRunner {
         cosmetic11.setImageUrl("https://images.pexels.com/photos/5462207/pexels-photo-5462207.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
         cosmetic11.setPayorigine("Maroc");
         cosmetic11.setQuantity(50);
+        cosmetic11.setLitrage(litrageArray);
+
         cosmeticIngredientRepository.save(cosmetic11);
 
 

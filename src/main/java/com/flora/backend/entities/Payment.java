@@ -22,4 +22,7 @@ public class Payment {
     private Date paymentDate;
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
+    @OneToOne
+    @JoinColumn(name = "order_id")
+    private Orders order;
 }

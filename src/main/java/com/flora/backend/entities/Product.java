@@ -15,13 +15,13 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TYPE")
-public  abstract class Product {
+public   class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-
+    private int litrage[];
 
     @Lob
     private String description;
@@ -45,6 +45,8 @@ public  abstract class Product {
 
 
     private boolean isActive;
+    @OneToMany(mappedBy = "product")
+    private List<OrderLine> orderLines;
 
 
 
