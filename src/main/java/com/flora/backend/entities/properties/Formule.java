@@ -25,8 +25,7 @@ public class Formule {
     private String oxydation;
     private String stabiliteTemp;
     private String INCI;
-    @OneToMany(mappedBy = "formule")
-    List<CosmeticIngredient> cosmeticIngredients;
+
 
 }
 

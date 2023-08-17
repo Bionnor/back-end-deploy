@@ -18,16 +18,20 @@ import java.util.List;
 @Entity
 @DiscriminatorValue("Cosmetic")
 public class CosmeticIngredient extends Product{
-    private  String Nombotanique;
-    private String Organepresse;
+    private  String nombotanique;
+    private String organepresse;
     private String obtention;
     private String payorigine;
 
-    @ManyToOne
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+
     private Organoleptic organoleptic;
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
+
     private Formule formule;
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
+
     private AcidesGras acidesGras;
 
 

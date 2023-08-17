@@ -30,7 +30,6 @@ public class AcidesGras
     private String ags  ;
     private String agmi;
     private String agpi;
-    @OneToMany(mappedBy = "acidesGras")
-    List<CosmeticIngredient> cosmeticIngredients;
+
 
 }
