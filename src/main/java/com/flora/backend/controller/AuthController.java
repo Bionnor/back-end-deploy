@@ -22,7 +22,7 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @Slf4j
-@RequestMapping("/auth")
+@RequestMapping("api/v1/auth")
 public class AuthController {
     private AuthService authService;
 

@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 @CrossOrigin("*")
-@RequestMapping("/category")
+@RequestMapping("api/v1/category")
 public class CategoryController {
     @Autowired
     CategoryService categoryService;

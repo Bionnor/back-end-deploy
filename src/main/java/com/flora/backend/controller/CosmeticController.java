@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @Slf4j
 @CrossOrigin("*")
-@RequestMapping("/cosmetics")
+@RequestMapping("api/v1/cosmetics")
 public class CosmeticController {
     @Autowired
     CosmeticService cosmeticService;

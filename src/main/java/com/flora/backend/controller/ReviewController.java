@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @Slf4j
 @CrossOrigin("*")
-@RequestMapping("/reviews")
+@RequestMapping("api/v1/reviews")
 public class ReviewController {
     @Autowired
     private ReviewService reviewService;

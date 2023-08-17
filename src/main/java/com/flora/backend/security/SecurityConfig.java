@@ -34,13 +34,13 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService(){
         return new CustomUserDetailService();
     }
+/*    .requestMatchers("/auth/**","/users","/orders/**","/category/**","/h2-console/**","/products/**","/cosmetics/**","/blogs/**")*/
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity.csrf().disable()
                 .cors().and()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/**","/users","/orders/**","/category/**","/h2-console/**","/products/**","/cosmetics/**","/blogs/**")
-                 .permitAll()
+                .requestMatchers("api/v1/auth/**","/users","/h2-console/**").permitAll()
                 .requestMatchers(toH2Console()).permitAll()
                 .requestMatchers("/moderator/**")
                 .hasAnyRole("ROLE_MODERATOR_PRODUCT","ROLE_MODERATOR_BLOG")

@@ -20,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 @CrossOrigin("*")
-@RequestMapping("/blogs")
+@RequestMapping("api/v1/blogs")
 public class BlogController {
     @Autowired
     private BlogService blogService;
