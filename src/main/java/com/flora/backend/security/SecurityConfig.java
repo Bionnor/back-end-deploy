@@ -40,7 +40,7 @@ public class SecurityConfig {
         return httpSecurity.csrf().disable()
                 .cors().and()
                 .authorizeHttpRequests()
-                .requestMatchers("api/v1/auth/**","/users","/h2-console/**").permitAll()
+                .requestMatchers("/api/v1/auth/**","/users","/h2-console/**","/api/v1/blogs/**").permitAll()
                 .requestMatchers(toH2Console()).permitAll()
                 .requestMatchers("/moderator/**")
                 .hasAnyRole("ROLE_MODERATOR_PRODUCT","ROLE_MODERATOR_BLOG")
