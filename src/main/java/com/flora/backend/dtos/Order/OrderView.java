@@ -1,16 +1,11 @@
 package com.flora.backend.dtos.Order;
 
-import com.flora.backend.dtos.Category.CategoryView;
 import com.flora.backend.dtos.Customer.CustomerView;
 import com.flora.backend.dtos.InvoiceView;
-import com.flora.backend.dtos.PaymentView;
-import com.flora.backend.entities.Customer;
-import com.flora.backend.entities.Invoice;
-import com.flora.backend.entities.OrderLine;
+import com.flora.backend.dtos.Payment.PaymentView;
 import com.flora.backend.entities.OrderState;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

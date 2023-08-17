@@ -1,5 +1,6 @@
 package com.flora.backend.services;
 
+import com.flora.backend.dtos.BlogCategoryView;
 import com.flora.backend.dtos.Category.CategoryView;
 import com.flora.backend.dtos.Product.ProductView;
 import com.flora.backend.entities.Category;
@@ -11,4 +12,6 @@ public interface CategoryService {
 
    CategoryView findCategoryByProductId(Long productId);
     List<CategoryView> ShowCategoriesWithoutPageable();
+
+    List<BlogCategoryView> ShowBlogCategoriesWithoutPageable();
 }

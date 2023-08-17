@@ -1,4 +1,4 @@
-package com.flora.backend.dtos;
+package com.flora.backend.dtos.Payment;
 
 import com.flora.backend.entities.PaymentMethod;
 import jakarta.persistence.EnumType;

@@ -1,9 +1,11 @@
 package com.flora.backend.services;
 
+import com.flora.backend.dtos.BlogCategoryView;
 import com.flora.backend.dtos.Category.CategoryView;
 import com.flora.backend.entities.FinalProduct;
 import com.flora.backend.entities.Product;
 import com.flora.backend.mappers.CategoryMapper;
+import com.flora.backend.repository.BlogCategoryRepository;
 import com.flora.backend.repository.CategoryRepository;
 import com.flora.backend.repository.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -25,6 +27,8 @@ public class CategoryServiceImp implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
     @Autowired
+    private BlogCategoryRepository blogCategoryRepository;
+    @Autowired
     private ProductRepository productRepository;
 
     @Autowired
@@ -44,6 +48,11 @@ public class CategoryServiceImp implements CategoryService {
     @Override
     public List<CategoryView> ShowCategoriesWithoutPageable() {
         return categoryMapper.fromListCategoryToListCategoryView(categoryRepository.findAll());
+    }
+
+    @Override
+    public List<BlogCategoryView> ShowBlogCategoriesWithoutPageable() {
+        return categoryMapper.fromListBlogCategoryToListBlogCategoryView(blogCategoryRepository.findAll());
     }
 
 }

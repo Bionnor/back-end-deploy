@@ -1,5 +1,6 @@
 package com.flora.backend.controller;
 
+import com.flora.backend.dtos.BlogCategoryView;
 import com.flora.backend.dtos.Category.CategoryView;
 import com.flora.backend.dtos.Product.ProductView;
 import com.flora.backend.dtos.ResponsePageDTO;
@@ -27,6 +28,10 @@ public class CategoryController {
     @GetMapping("/all")
     public List<CategoryView> ShowCategoriesWithoutPageable() {
         return categoryService.ShowCategoriesWithoutPageable();
+    }
+    @GetMapping("/blog")
+    public List<BlogCategoryView> ShowBlogCategoriesWithoutPageable() {
+        return categoryService.ShowBlogCategoriesWithoutPageable();
     }
     @GetMapping("/product/{id}")
     public CategoryView getCategoryByProduct(@PathVariable Long id) {
