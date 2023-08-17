@@ -26,6 +26,6 @@ public class Review {
    private Customer customer;
 
     @ManyToOne
-   private FinalProduct product;
+   private Product product;
 
 }

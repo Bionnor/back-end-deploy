@@ -24,8 +24,7 @@ public class Organoleptic  {
     private String odeur;
     private String toucher;
     private String autres;
-    @OneToMany(mappedBy = "organoleptic")
-    List<CosmeticIngredient> cosmeticIngredients;
+
 
 
 

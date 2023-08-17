@@ -3,10 +3,13 @@ package com.flora.backend.loader;
 
 import com.flora.backend.entities.CosmeticIngredient;
 
+import com.flora.backend.entities.Rate;
+import com.flora.backend.entities.Review;
 import com.flora.backend.entities.properties.AcidesGras;
 import com.flora.backend.entities.properties.Formule;
 import com.flora.backend.entities.properties.Organoleptic;
 import com.flora.backend.repository.CosmeticIngredientRepository;
+import com.flora.backend.repository.ReviewRepository;
 import com.flora.backend.repository.properties.AcideGrasRepository;
 import com.flora.backend.repository.properties.FormuleRepository;
 import com.flora.backend.repository.properties.OrganolepticRepository;
@@ -31,7 +34,8 @@ public class CosmeticIngredientLoader implements CommandLineRunner {
     @Autowired
     AcideGrasRepository acideGrasRepository;
 
-
+    @Autowired
+    ReviewRepository reviewRepository;
     @Autowired
     OrganolepticRepository organolepticRepository;
     @Override
@@ -52,13 +56,14 @@ public class CosmeticIngredientLoader implements CommandLineRunner {
         int[] litrageArray = {100, 200, 300};
         cosmetic1.setLitrage(litrageArray);
 
+
 // Organoleptic
         Organoleptic organoleptic = new Organoleptic();
         organoleptic.setAspect("liquide à 20°C");
         organoleptic.setCouleur("jaune à verte");
         organoleptic.setOdeur("gourmande, assez végétale");
         organoleptic.setToucher("sec");
-        organolepticRepository.save(organoleptic);
+
 
 // AcidesGras
         AcidesGras acidesGras = new AcidesGras();
@@ -66,7 +71,6 @@ public class CosmeticIngredientLoader implements CommandLineRunner {
         acidesGras.setAcideoleique("13.03%");
         acidesGras.setAcidepalmitique("11.88%");
 // ... (ajoutez les autres acides gras)
-        acideGrasRepository.save(acidesGras);
 
 // Formule
         Formule formule = new Formule();
@@ -76,7 +80,6 @@ public class CosmeticIngredientLoader implements CommandLineRunner {
         formule.setSaponificationMoyenne("");
         formule.setStabiliteTemp("sensible");
         formule.setComedogenicite("1 (=peu comédogène)");
-        formuleRepository.save(formule);
 
 // Associer les entités entre elles
         cosmetic1.setOrganoleptic(organoleptic);
@@ -133,9 +136,7 @@ public class CosmeticIngredientLoader implements CommandLineRunner {
         formule1.setStabiliteTemp("sensible");
         formule1.setComedogenicite("1 (=peu comédogène)");
 
-        organolepticRepository.save(organoleptic1);
-        acideGrasRepository.save(acidesGras1);
-        formuleRepository.save(formule1);
+
 
         cosmetic2.setOrganoleptic(organoleptic1);
         cosmetic2.setAcidesGras(acidesGras1);
